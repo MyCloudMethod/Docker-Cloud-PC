@@ -1396,6 +1396,7 @@ docker load -i win10-backup.tar
                           🚀 HIGH PERFORMANCE COMPUTING 🚀
 
                             💎 PRODUCTION READY 💎
+```
 
 ## 📜 License and Usage
 
@@ -1414,4 +1415,5 @@ Feel free to submit issues and enhancement requests!
 
 # Email us
 - aiimageclassifierteam@gmail.com
+
 
