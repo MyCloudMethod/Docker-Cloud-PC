@@ -1307,4 +1307,7 @@ Feel free to submit issues and enhancement requests!
 
 **Note**: This setup provides a powerful Windows-based cloud PC environment suitable for development, testing, and remote work scenarios with high-performance computing requirements.
 
-**Email us** 
+## support
+
+# Email us
+- aiimageclassifierteam@gmail.com
