@@ -7,11 +7,11 @@ The term 'docker-compose' is not recognized as the name of a cmdlet, function, s
 
 **Root Cause**: Modern Docker Desktop uses `docker compose` (without hyphen) instead of legacy `docker-compose` command.
 
-## ✅ **Solution Applied:**
+##  **Solution Applied:**
 
 ### **Command Updates Made:**
 
-| ❌ **Old (Legacy)** | ✅ **New (Modern)** |
+|  **Old (Legacy)** |  **New (Modern)** |
 |---------------------|----------------------|
 | `docker-compose build --no-cache` | `docker compose build --no-cache` |
 | `docker-compose up -d` | `docker compose up -d` |
@@ -97,4 +97,5 @@ All Docker Compose commands now use the modern `docker compose` syntax compatibl
 - Modern Docker Desktop integrates Compose as a plugin
 - The `docker compose` command is faster and more stable
 - All existing `docker-compose.yml` files work without changes
+
 - Only the command syntax changed, not the functionality
