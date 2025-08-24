@@ -1,0 +1,350 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Windows11CloudPCConfiguration xmlns="http://schemas.microsoft.com/cloudpc/2024">
+    <Metadata>
+        <Version>2.0</Version>
+        <Created>2024-08-24</Created>
+        <Description>Advanced Windows 11 Cloud PC Configuration</Description>
+        <ConfigurationType>Production</ConfigurationType>
+    </Metadata>
+
+    <SystemProfile>
+        <Edition>Windows 11 Enterprise</Edition>
+        <Build>22631</Build>
+        <Architecture>x64</Architecture>
+        <Locale>en-US</Locale>
+        <TimeZone>UTC</TimeZone>
+        <ComputerName>CloudPC-Win11</ComputerName>
+        <WorkGroup>CLOUDPC</WorkGroup>
+    </SystemProfile>
+
+    <HardwareSpecifications>
+        <Processor>
+            <Cores>16</Cores>
+            <Threads>32</Threads>
+            <Architecture>x64</Architecture>
+            <Features>
+                <Virtualization enabled="true"/>
+                <HyperV enabled="true"/>
+                <SecureBoot enabled="true"/>
+                <TPM version="2.0" enabled="true"/>
+            </Features>
+        </Processor>
+        
+        <Memory>
+            <Physical size="137438953472" unit="bytes"/>
+            <Virtual>
+                <InitialSize>68719476736</InitialSize>
+                <MaximumSize>137438953472</MaximumSize>
+                <Location>C:\pagefile.sys</Location>
+            </Virtual>
+            <Features>
+                <MemoryCompression enabled="true"/>
+                <PageFileOptimization enabled="true"/>
+            </Features>
+        </Memory>
+
+        <Graphics>
+            <GPU>
+                <Model>NVIDIA Tesla T4</Model>
+                <Memory size="16384" unit="MB"/>
+                <CudaCores>2560</CudaCores>
+                <Features>
+                    <CUDA enabled="true" version="12.0"/>
+                    <DirectX version="12" enabled="true"/>
+                    <OpenGL version="4.6" enabled="true"/>
+                    <Vulkan enabled="true"/>
+                    <HardwareAcceleration enabled="true"/>
+                </Features>
+            </GPU>
+            <Display>
+                <Resolution width="1920" height="1080"/>
+                <ColorDepth>32</ColorDepth>
+                <RefreshRate>60</RefreshRate>
+                <MultiMonitor enabled="true" maxDisplays="4"/>
+            </Display>
+        </Graphics>
+
+        <Storage>
+            <SystemDrive>
+                <Letter>C</Letter>
+                <Size size="549755813888" unit="bytes"/>
+                <Type>NVMe SSD</Type>
+                <Features>
+                    <TRIM enabled="true"/>
+                    <WriteCache enabled="true"/>
+                    <Compression enabled="false"/>
+                    <Encryption type="BitLocker" enabled="false"/>
+                </Features>
+            </SystemDrive>
+        </Storage>
+    </HardwareSpecifications>
+
+    <Windows11Features>
+        <StartMenu>
+            <Layout>Centered</Layout>
+            <RecommendedSection enabled="true"/>
+            <RecentFiles enabled="true"/>
+            <TaskbarChat enabled="false"/>
+            <TaskbarWidgets enabled="false"/>
+            <TaskbarSearch enabled="true"/>
+        </StartMenu>
+
+        <WindowsExplorer>
+            <FileExtensions visible="true"/>
+            <RibbonInterface enabled="true"/>
+            <QuickAccess enabled="true"/>
+            <OneDriveIntegration enabled="false"/>
+        </WindowsExplorer>
+
+        <Security>
+            <WindowsDefender>
+                <RealTimeProtection enabled="false"/>
+                <CloudProtection enabled="false"/>
+                <AutomaticSampleSubmission enabled="false"/>
+            </WindowsDefender>
+            <SmartScreen enabled="false"/>
+            <WindowsFirewall enabled="true"/>
+            <BitLocker enabled="false"/>
+        </Security>
+
+        <Privacy>
+            <Telemetry level="Basic"/>
+            <LocationServices enabled="false"/>
+            <CameraAccess enabled="true"/>
+            <MicrophoneAccess enabled="true"/>
+            <DiagnosticData enabled="false"/>
+        </Privacy>
+
+        <Performance>
+            <PowerPlan>High Performance</PowerPlan>
+            <VisualEffects>
+                <AnimationsEnabled>false</AnimationsEnabled>
+                <TransparencyEnabled>false</TransparencyEnabled>
+                <ShadowsEnabled>false</ShadowsEnabled>
+            </VisualEffects>
+            <BackgroundApps enabled="false"/>
+            <StartupPrograms optimized="true"/>
+        </Performance>
+    </Windows11Features>
+
+    <RemoteAccess>
+        <VNC>
+            <Server>TightVNC</Server>
+            <Port>5901</Port>
+            <Authentication>
+                <Method>VNC</Method>
+                <Password>cloudpc123</Password>
+                <ViewOnlyPassword>viewer123</ViewOnlyPassword>
+            </Authentication>
+            <Display>
+                <Resolution width="1920" height="1080"/>
+                <ColorDepth>24</ColorDepth>
+                <CursorShape>local</CursorShape>
+            </Display>
+            <Performance>
+                <CompressionLevel>6</CompressionLevel>
+                <JPEG enabled="true" quality="6"/>
+                <CopyRectEncoding enabled="true"/>
+                <TightEncoding enabled="true"/>
+            </Performance>
+            <Security>
+                <ViewOnlyAccess enabled="true"/>
+                <LocalInputBlocking enabled="false"/>
+                <RemoteInputBlocking enabled="false"/>
+                <QueryConnect enabled="false"/>
+            </Security>
+        </VNC>
+
+        <RDP>
+            <Port>3389</Port>
+            <NetworkLevelAuthentication enabled="false"/>
+            <RequireSSL enabled="false"/>
+            <AudioRedirection enabled="true"/>
+            <ClipboardRedirection enabled="true"/>
+            <DriveRedirection enabled="true"/>
+            <PrinterRedirection enabled="true"/>
+        </RDP>
+    </RemoteAccess>
+
+    <Applications>
+        <PreInstalled>
+            <WebBrowsers>
+                <Application name="Mozilla Firefox" version="latest" path="C:\Program Files\Mozilla Firefox\firefox.exe"/>
+                <Application name="Google Chrome" version="latest" path="C:\Program Files\Google\Chrome\Application\chrome.exe"/>
+                <Application name="Microsoft Edge" version="latest" path="C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe"/>
+            </WebBrowsers>
+            
+            <Development>
+                <Application name="Git" version="latest" path="C:\Program Files\Git\bin\git.exe"/>
+                <Application name="Node.js" version="LTS" path="C:\Program Files\nodejs\node.exe"/>
+                <Application name="Python" version="3.12" path="C:\Program Files\Python312\python.exe"/>
+                <Application name="Visual Studio Code" version="latest" path="C:\Users\Administrator\AppData\Local\Programs\Microsoft VS Code\Code.exe"/>
+                <Application name="PowerShell" version="7" path="C:\Program Files\PowerShell\7\pwsh.exe"/>
+            </Development>
+
+            <Utilities>
+                <Application name="7-Zip" version="latest" path="C:\Program Files\7-Zip\7zFM.exe"/>
+                <Application name="Notepad++" version="latest" path="C:\Program Files\Notepad++\notepad++.exe"/>
+                <Application name="Process Explorer" version="latest" path="C:\Tools\ProcessExplorer\procexp64.exe"/>
+                <Application name="GPU-Z" version="latest" path="C:\Tools\GPU-Z\GPU-Z.exe"/>
+            </Utilities>
+
+            <Runtime>
+                <Application name=".NET Runtime" version="8.0" path="C:\Program Files\dotnet\dotnet.exe"/>
+                <Application name="Visual C++ Redistributable" version="2022" path=""/>
+                <Application name="DirectX Runtime" version="latest" path=""/>
+                <Application name="NVIDIA CUDA" version="12.0" path="C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v12.0\bin\nvcc.exe"/>
+            </Runtime>
+        </PreInstalled>
+
+        <AutoStart>
+            <Application name="VNC Server" enabled="true"/>
+            <Application name="System Monitor" enabled="true" path="C:\CloudPC\scripts\system-monitor.ps1"/>
+            <Application name="Log Rotation" enabled="true" schedule="daily"/>
+        </AutoStart>
+    </Applications>
+
+    <NetworkConfiguration>
+        <Interfaces>
+            <Ethernet>
+                <DHCP enabled="true"/>
+                <IPv6 enabled="true"/>
+                <JumboFrames enabled="false"/>
+            </Ethernet>
+        </Interfaces>
+
+        <Firewall>
+            <Profile name="Domain" state="on"/>
+            <Profile name="Private" state="on"/>
+            <Profile name="Public" state="on"/>
+            
+            <Rules>
+                <InboundRule name="VNC-TCP" action="allow" protocol="TCP" localPort="5901"/>
+                <InboundRule name="VNC-HTTP" action="allow" protocol="TCP" localPort="5800"/>
+                <InboundRule name="RDP-TCP" action="allow" protocol="TCP" localPort="3389"/>
+                <InboundRule name="HTTP" action="allow" protocol="TCP" localPort="80"/>
+                <InboundRule name="HTTPS" action="allow" protocol="TCP" localPort="443"/>
+                <OutboundRule name="All-Traffic" action="allow" protocol="any"/>
+            </Rules>
+        </Firewall>
+
+        <DNS>
+            <Primary>8.8.8.8</Primary>
+            <Secondary>8.8.4.4</Secondary>
+            <IPv6Primary>2001:4860:4860::8888</IPv6Primary>
+            <IPv6Secondary>2001:4860:4860::8844</IPv6Secondary>
+        </DNS>
+    </NetworkConfiguration>
+
+    <UserAccounts>
+        <Administrator>
+            <Username>Administrator</Username>
+            <PasswordComplexity enabled="false"/>
+            <AutoLogon enabled="true"/>
+            <UserAccountControl level="Never"/>
+            <RemoteDesktop enabled="true"/>
+        </Administrator>
+
+        <DefaultUser>
+            <Username>CloudUser</Username>
+            <AutoLogon enabled="false"/>
+            <PasswordRequired enabled="true"/>
+            <RemoteDesktop enabled="true"/>
+        </DefaultUser>
+    </UserAccounts>
+
+    <Services>
+        <WindowsServices>
+            <Service name="Themes" startup="Disabled"/>
+            <Service name="Windows Search" startup="Disabled"/>
+            <Service name="Print Spooler" startup="Manual"/>
+            <Service name="Windows Update" startup="Manual"/>
+            <Service name="Windows Defender" startup="Disabled"/>
+            <Service name="Superfetch" startup="Disabled"/>
+            <Service name="Windows Error Reporting" startup="Disabled"/>
+        </WindowsServices>
+
+        <CustomServices>
+            <Service name="TightVNC Server" startup="Automatic" path="C:\Program Files\TightVNC\tvnserver.exe"/>
+            <Service name="NVIDIA Display Container LS" startup="Automatic"/>
+            <Service name="NVIDIA LocalSystem Container" startup="Automatic"/>
+        </CustomServices>
+    </Services>
+
+    <ScheduledTasks>
+        <Task name="System Monitoring">
+            <Schedule>Continuous</Schedule>
+            <Command>PowerShell -File C:\CloudPC\scripts\system-monitor.ps1</Command>
+            <RunAsUser>SYSTEM</RunAsUser>
+        </Task>
+
+        <Task name="Log Rotation">
+            <Schedule>Daily at 2:00 AM</Schedule>
+            <Command>PowerShell -File C:\CloudPC\scripts\rotate-logs.ps1</Command>
+            <RunAsUser>SYSTEM</RunAsUser>
+        </Task>
+
+        <Task name="GPU Health Check">
+            <Schedule>Every 30 minutes</Schedule>
+            <Command>nvidia-smi --query-gpu=temperature.gpu,utilization.gpu,memory.used --format=csv >> C:\CloudPC\logs\gpu-health.csv</Command>
+            <RunAsUser>SYSTEM</RunAsUser>
+        </Task>
+    </ScheduledTasks>
+
+    <Registry>
+        <Keys>
+            <Key path="HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced">
+                <Value name="HideFileExt" type="DWORD" data="0"/>
+                <Value name="Hidden" type="DWORD" data="1"/>
+                <Value name="ShowSuperHidden" type="DWORD" data="1"/>
+            </Key>
+
+            <Key path="HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Power">
+                <Value name="HibernateEnabled" type="DWORD" data="0"/>
+                <Value name="CSEnabled" type="DWORD" data="0"/>
+            </Key>
+
+            <Key path="HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate\AU">
+                <Value name="NoAutoUpdate" type="DWORD" data="1"/>
+            </Key>
+        </Keys>
+    </Registry>
+
+    <Monitoring>
+        <PerformanceCounters>
+            <Counter name="CPU Usage" path="\Processor(_Total)\% Processor Time" interval="30"/>
+            <Counter name="Memory Usage" path="\Memory\Available MBytes" interval="30"/>
+            <Counter name="Disk Usage" path="\PhysicalDisk(_Total)\% Disk Time" interval="60"/>
+            <Counter name="Network Usage" path="\Network Interface(*)\Bytes Total/sec" interval="60"/>
+            <Counter name="GPU Usage" path="\GPU Engine(*)\Utilization Percentage" interval="60"/>
+        </PerformanceCounters>
+
+        <Logging>
+            <EventLogs>
+                <Log name="System" retention="7" maxSize="100MB"/>
+                <Log name="Application" retention="7" maxSize="100MB"/>
+                <Log name="Security" retention="30" maxSize="200MB"/>
+            </EventLogs>
+
+            <CustomLogs>
+                <Log name="VNC" path="C:\CloudPC\logs\vnc.log" rotation="daily" maxSize="50MB"/>
+                <Log name="Performance" path="C:\CloudPC\logs\performance.log" rotation="weekly" maxSize="100MB"/>
+                <Log name="GPU" path="C:\CloudPC\logs\gpu-health.csv" rotation="monthly" maxSize="10MB"/>
+            </CustomLogs>
+        </Logging>
+    </Monitoring>
+
+    <Backup>
+        <AutoBackup enabled="true" schedule="Daily at 1:00 AM">
+            <Targets>
+                <Path>C:\CloudPC\data</Path>
+                <Path>C:\CloudPC\config</Path>
+                <Path>C:\Users\Administrator\Desktop</Path>
+                <Path>C:\Users\Administrator\Documents</Path>
+            </Targets>
+            <Destination>C:\CloudPC\backups</Destination>
+            <Retention days="7"/>
+            <Compression enabled="true"/>
+        </AutoBackup>
+    </Backup>
+</Windows11CloudPCConfiguration>

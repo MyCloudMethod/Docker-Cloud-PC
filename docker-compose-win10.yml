@@ -1,0 +1,117 @@
+version: '3.8'
+
+services:
+  windows10-cloud-pc:
+    build:
+      context: .
+      dockerfile: Dockerfile-win10
+    container_name: windows10-ltsc-cloudpc
+    hostname: cloudpc-win10-ltsc
+    
+    # Hardware specifications
+    deploy:
+      resources:
+        limits:
+          cpus: '16'
+          memory: 128G
+        reservations:
+          cpus: '8'
+          memory: 64G
+      # GPU support for NVIDIA T4
+      devices:
+        - driver: nvidia
+          count: 1
+          capabilities: [gpu]
+    
+    # Port mappings
+    ports:
+      - "5901:5901"    # VNC
+      - "3389:3389"    # RDP
+      - "8080:80"      # HTTP
+      - "8443:443"     # HTTPS
+    
+    # Environment variables
+    environment:
+      - DISPLAY=:1
+      - VNC_PORT=5901
+      - VNC_PASSWORD=cloudpc123
+      - NVIDIA_VISIBLE_DEVICES=all
+      - NVIDIA_DRIVER_CAPABILITIES=all
+      - TZ=UTC
+      - WINDOWS_VERSION=10
+      - WINDOWS_EDITION=LTSC
+    
+    # Volume mappings
+    volumes:
+      - cloudpc-win10-data:/CloudPC/data
+      - cloudpc-win10-logs:/CloudPC/logs
+      - cloudpc-win10-config:/CloudPC/config
+      - type: bind
+        source: ./windows10-advanced.xml
+        target: C:/CloudPC/config/windows-advanced.xml
+      - type: bind
+        source: ./cloudpc-config.xml
+        target: C:/CloudPC/config/cloudpc-config.xml
+    
+    # Network configuration
+    networks:
+      - cloudpc-win10-network
+    
+    # Restart policy
+    restart: unless-stopped
+    
+    # Health check
+    healthcheck:
+      test: ["CMD", "powershell", "-Command", "Test-NetConnection -ComputerName localhost -Port 5901 -InformationLevel Quiet"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 60s
+    
+    # Security options
+    security_opt:
+      - no-new-privileges:true
+    
+    # Resource limits (alternative specification)
+    mem_limit: 128g
+    memswap_limit: 128g
+    cpus: 16
+    
+    # Storage driver options for SSD optimization
+    storage_opt:
+      size: 512G
+    
+    # Labels for identification
+    labels:
+      - "cloudpc.version=win10-ltsc"
+      - "cloudpc.type=enterprise"
+      - "cloudpc.platform=multi-platform"
+
+networks:
+  cloudpc-win10-network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.21.0.0/16
+
+volumes:
+  cloudpc-win10-data:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: ./data-win10
+  
+  cloudpc-win10-logs:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: ./logs-win10
+  
+  cloudpc-win10-config:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: ./config-win10

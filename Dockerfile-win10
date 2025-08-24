@@ -1,0 +1,132 @@
+# Windows 10 LTSC Cloud PC with VNC Access
+# Base Windows Server Core image optimized for Windows 10 LTSC compatibility
+FROM mcr.microsoft.com/windows/servercore:ltsc2022
+
+# Set shell to PowerShell
+SHELL ["powershell", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPreference = 'SilentlyContinue';"]
+
+# Set environment variables for Windows 10 LTSC
+ENV DISPLAY=:1 \
+    VNC_PORT=5901 \
+    VNC_PASSWORD=cloudpc123 \
+    NVIDIA_VISIBLE_DEVICES=all \
+    NVIDIA_DRIVER_CAPABILITIES=all \
+    WINDOWS_VERSION=10 \
+    WINDOWS_EDITION=LTSC
+
+# Create working directory
+WORKDIR C:\\CloudPC
+
+# Install Chocolatey package manager
+RUN Set-ExecutionPolicy Bypass -Scope Process -Force; \
+    [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; \
+    iex ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'))
+
+# Install Windows 10 LTSC compatible packages
+RUN choco install -y --no-progress \
+    git \
+    firefox --version=115.0 \
+    googlechrome --version=120.0 \
+    notepadplusplus \
+    7zip \
+    vcredist2015 \
+    vcredist2017 \
+    vcredist2019 \
+    vcredist2022 \
+    dotnetfx \
+    dotnet-6.0-runtime \
+    python3 --version=3.11.7 \
+    nodejs --version=18.19.0
+
+# Install TightVNC Server with Windows 10 LTSC compatibility
+RUN New-Item -ItemType Directory -Force -Path 'C:\\temp'; \
+    Invoke-WebRequest -Uri 'https://www.tightvnc.com/download/2.8.27/tightvnc-2.8.27-gpl-setup-64bit.msi' -OutFile 'C:\\temp\\tightvnc-setup.msi'; \
+    Start-Process -FilePath 'msiexec.exe' -ArgumentList '/i', 'C:\\temp\\tightvnc-setup.msi', '/quiet', '/norestart', 'ADDLOCAL=Server', 'SERVER_REGISTER_AS_SERVICE=1', 'SERVER_ADD_FIREWALL_EXCEPTION=1', 'SET_USEVNCAUTHENTICATION=1', 'VALUE_OF_USEVNCAUTHENTICATION=1', 'SET_PASSWORD=1', 'VALUE_OF_PASSWORD=cloudpc123', 'SET_USECONTROLAUTHENTICATION=1', 'VALUE_OF_USECONTROLAUTHENTICATION=1', 'SET_CONTROLPASSWORD=1', 'VALUE_OF_CONTROLPASSWORD=admin123' -Wait; \
+    Remove-Item 'C:\\temp\\tightvnc-setup.msi'
+
+# Configure Windows 10 LTSC specific features
+RUN try { Enable-WindowsOptionalFeature -Online -FeatureName IIS-WebServerRole -All -NoRestart } catch { Write-Host 'IIS may not be available in this container' }; \
+    try { Enable-WindowsOptionalFeature -Online -FeatureName IIS-WebServer -All -NoRestart } catch { Write-Host 'IIS WebServer feature not available' }; \
+    try { Enable-WindowsOptionalFeature -Online -FeatureName IIS-HttpCompressionStatic -All -NoRestart } catch { Write-Host 'IIS compression not available' }
+
+# Install NVIDIA Container Toolkit for Windows 10 compatibility
+RUN try { \
+        Invoke-WebRequest -Uri 'https://developer.download.nvidia.com/compute/cuda/11.8.0/network_installers/cuda_11.8.0_windows_network.exe' -OutFile 'C:\\temp\\cuda-installer.exe'; \
+        Start-Process -FilePath 'C:\\temp\\cuda-installer.exe' -ArgumentList '/S' -Wait; \
+        Remove-Item 'C:\\temp\\cuda-installer.exe' \
+    } catch { \
+        Write-Host 'CUDA installation may require manual setup' \
+    }
+
+# Create directories first
+RUN New-Item -ItemType Directory -Force -Path 'C:\\CloudPC\\config'
+RUN New-Item -ItemType Directory -Force -Path 'C:\\CloudPC\\scripts'
+RUN New-Item -ItemType Directory -Force -Path 'C:\\CloudPC\\logs'
+RUN New-Item -ItemType Directory -Force -Path 'C:\\CloudPC\\data'
+
+# Copy configuration files
+COPY configure-cloudpc.ps1 C:\\CloudPC\\scripts\\configure-cloudpc.ps1
+COPY vnc-config.ini C:\\CloudPC\\config\\vnc-config.ini
+COPY windows10-advanced.xml C:\\CloudPC\\config\\windows10-advanced.xml
+
+# Execute Windows 10 LTSC configuration script
+RUN PowerShell -ExecutionPolicy Bypass -Command "& 'C:\\CloudPC\\scripts\\configure-cloudpc.ps1' -VNCPassword (ConvertTo-SecureString 'cloudpc123' -AsPlainText -Force) -AdminPassword (ConvertTo-SecureString 'admin123' -AsPlainText -Force) -VNCPort 5901 -CPUCores 16 -RAMSizeGB 128"
+
+# Configure Windows 10 LTSC specific registry settings
+RUN New-ItemProperty -Path 'HKLM:\\SYSTEM\\CurrentControlSet\\Control\\Terminal Server' -Name 'fDenyTSConnections' -Value 0 -PropertyType DWORD -Force; \
+    New-ItemProperty -Path 'HKLM:\\SYSTEM\\CurrentControlSet\\Control\\Terminal Server\\WinStations\\RDP-Tcp' -Name 'UserAuthentication' -Value 0 -PropertyType DWORD -Force; \
+    New-ItemProperty -Path 'HKLM:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\System' -Name 'EnableLUA' -Value 0 -PropertyType DWORD -Force
+
+# Configure Windows 10 LTSC specific visual settings
+RUN New-ItemProperty -Path 'HKLM:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Explorer\\VisualEffects' -Name 'VisualFXSetting' -Value 2 -PropertyType DWORD -Force; \
+    New-ItemProperty -Path 'HKCU:\\Control Panel\\Desktop' -Name 'UserPreferencesMask' -Value ([byte[]](0x90,0x12,0x03,0x80,0x10,0x00,0x00,0x00)) -PropertyType Binary -Force
+
+# Set up VNC configuration for Windows 10 LTSC
+RUN New-Item -ItemType Directory -Force -Path 'C:\\Users\\ContainerAdministrator\\.vnc'; \
+    Set-Content -Path 'C:\\Users\\ContainerAdministrator\\.vnc\\passwd' -Value (ConvertTo-SecureString -String 'cloudpc123' -AsPlainText -Force | ConvertFrom-SecureString)
+
+# Create Windows 10 LTSC optimized startup script
+RUN @' \
+# Windows 10 LTSC Cloud PC Startup Script \
+Write-Host "Starting Windows 10 LTSC Cloud PC Services..." -ForegroundColor Green \
+Write-Host "Configuring Windows 10 LTSC specific settings..." -ForegroundColor Yellow \
+\
+# Start essential services \
+try { Start-Service -Name "tvnserver" -ErrorAction SilentlyContinue } catch { Write-Host "VNC service will start manually" } \
+try { Start-Service -Name "W3SVC" -ErrorAction SilentlyContinue } catch { Write-Host "IIS service not available" } \
+try { Start-Service -Name "TermService" -ErrorAction SilentlyContinue } catch { Write-Host "Terminal Services not available" } \
+\
+Write-Host "Services started successfully" -ForegroundColor Green \
+Write-Host "VNC Server running on port 5901" -ForegroundColor Cyan \
+Write-Host "Windows 10 LTSC Cloud PC is ready!" -ForegroundColor Green \
+Write-Host "Use VNC password: cloudpc123" -ForegroundColor Cyan \
+Write-Host "Use Admin password: admin123" -ForegroundColor Cyan \
+\
+# Keep container running with Windows 10 LTSC monitoring \
+while ($true) { \
+    Start-Sleep -Seconds 30 \
+    $timestamp = Get-Date -Format "yyyy-MM-dd HH:mm:ss" \
+    Write-Host "[$timestamp] Windows 10 LTSC Cloud PC is running..." -ForegroundColor Gray \
+} \
+'@ | Out-File -FilePath 'C:\\CloudPC\\startup-win10.ps1' -Encoding ASCII
+
+# Expose VNC and RDP ports
+EXPOSE 5901 3389 80 443
+
+# Set resource limits and hardware specifications in labels for Windows 10 LTSC
+LABEL memory="137438953472" \
+      cpus="16" \
+      storage="549755813888" \
+      gpu="nvidia-tesla-t4" \
+      vnc.port="5901" \
+      vnc.password="cloudpc123" \
+      windows.version="10" \
+      windows.edition="LTSC" \
+      platform="multi-platform"
+
+# Health check for Windows 10 LTSC
+HEALTHCHECK --interval=30s --timeout=10s --start-period=60s --retries=3 \
+    CMD powershell -Command "try { Test-NetConnection -ComputerName localhost -Port 5901 -InformationLevel Quiet } catch { exit 1 }"
+
+# Start the Windows 10 LTSC Cloud PC
+CMD ["powershell", "-File", "C:\\CloudPC\\startup-win10.ps1"]

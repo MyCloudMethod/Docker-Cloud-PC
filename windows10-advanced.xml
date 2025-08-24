@@ -1,0 +1,628 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Windows10CloudPCConfiguration xmlns="http://schemas.microsoft.com/cloudpc/2024">
+    <Metadata>
+        <Version>2.0</Version>
+        <Created>2024-08-24</Created>
+        <Description>Advanced Windows 10 Cloud PC Configuration</Description>
+        <ConfigurationType>Production</ConfigurationType>
+        <TargetOS>Windows 10</TargetOS>
+    </Metadata>
+
+    <SystemProfile>
+        <Edition>Windows 10 Enterprise LTSC 2021</Edition>
+        <Build>19044</Build>
+        <Architecture>x64</Architecture>
+        <Locale>en-US</Locale>
+        <TimeZone>UTC</TimeZone>
+        <ComputerName>CloudPC-Win10</ComputerName>
+        <WorkGroup>CLOUDPC</WorkGroup>
+        <ProductKey>VK7JG-NPHTM-C97JM-9MPGT-3V66T</ProductKey>
+    </SystemProfile>
+
+    <HardwareSpecifications>
+        <Processor>
+            <Cores>16</Cores>
+            <Threads>32</Threads>
+            <Architecture>x64</Architecture>
+            <Features>
+                <Virtualization enabled="true"/>
+                <HyperV enabled="true"/>
+                <SecureBoot enabled="true"/>
+                <TPM version="2.0" enabled="true"/>
+                <UEFI enabled="true"/>
+            </Features>
+            <PowerManagement>
+                <C1E enabled="false"/>
+                <SpeedStep enabled="true"/>
+                <TurboBoost enabled="true"/>
+            </PowerManagement>
+        </Processor>
+        
+        <Memory>
+            <Physical size="137438953472" unit="bytes"/>
+            <Virtual>
+                <InitialSize>68719476736</InitialSize>
+                <MaximumSize>274877906944</MaximumSize>
+                <Location>C:\pagefile.sys</Location>
+                <AutoManage>false</AutoManage>
+            </Virtual>
+            <Features>
+                <MemoryCompression enabled="true"/>
+                <PageFileOptimization enabled="true"/>
+                <LargePageSupport enabled="true"/>
+                <DEPPolicy>OptOut</DEPPolicy>
+            </Features>
+        </Memory>
+
+        <Graphics>
+            <GPU>
+                <Model>NVIDIA Tesla T4</Model>
+                <Memory size="16384" unit="MB"/>
+                <CudaCores>2560</CudaCores>
+                <Features>
+                    <CUDA enabled="true" version="12.0"/>
+                    <DirectX version="12" enabled="true"/>
+                    <OpenGL version="4.6" enabled="true"/>
+                    <Vulkan enabled="true"/>
+                    <HardwareAcceleration enabled="true"/>
+                    <GPUScheduling enabled="true"/>
+                </Features>
+                <PowerManagement>
+                    <OptimalPower enabled="false"/>
+                    <MaxPerformance enabled="true"/>
+                </PowerManagement>
+            </GPU>
+            <Display>
+                <Resolution width="1920" height="1080"/>
+                <ColorDepth>32</ColorDepth>
+                <RefreshRate>60</RefreshRate>
+                <MultiMonitor enabled="true" maxDisplays="4"/>
+                <HDR enabled="false"/>
+                <VariableRefreshRate enabled="false"/>
+            </Display>
+        </Graphics>
+
+        <Storage>
+            <SystemDrive>
+                <Letter>C</Letter>
+                <Size size="549755813888" unit="bytes"/>
+                <Type>NVMe SSD</Type>
+                <FileSystem>NTFS</FileSystem>
+                <Features>
+                    <TRIM enabled="true"/>
+                    <WriteCache enabled="true"/>
+                    <Compression enabled="false"/>
+                    <Encryption type="BitLocker" enabled="false"/>
+                    <Defragmentation enabled="false"/>
+                    <Indexing enabled="false"/>
+                </Features>
+            </SystemDrive>
+        </Storage>
+
+        <Audio>
+            <Device>Virtual Audio Device</Device>
+            <SampleRate>48000</SampleRate>
+            <BitDepth>24</BitDepth>
+            <Channels>Stereo</Channels>
+            <Enhancements enabled="false"/>
+        </Audio>
+    </HardwareSpecifications>
+
+    <Windows10Features>
+        <StartMenu>
+            <Style>Windows 10</Style>
+            <TileGroups enabled="true"/>
+            <RecentlyAdded enabled="true"/>
+            <MostUsed enabled="true"/>
+            <Suggestions enabled="false"/>
+            <LiveTiles enabled="false"/>
+            <TaskbarSearch enabled="true" type="Icon"/>
+            <CortanaIntegration enabled="false"/>
+        </StartMenu>
+
+        <TaskBar>
+            <Position>Bottom</Position>
+            <AutoHide enabled="false"/>
+            <SmallIcons enabled="false"/>
+            <PeopleButton enabled="false"/>
+            <TaskView enabled="true"/>
+            <NewsAndInterests enabled="false"/>
+            <SystemTrayIcons>
+                <Network enabled="true"/>
+                <Volume enabled="true"/>
+                <Power enabled="true"/>
+                <Clock enabled="true"/>
+                <ActionCenter enabled="true"/>
+            </SystemTrayIcons>
+        </TaskBar>
+
+        <WindowsExplorer>
+            <FileExtensions visible="true"/>
+            <HiddenFiles visible="true"/>
+            <SystemFiles visible="false"/>
+            <RibbonInterface enabled="true"/>
+            <QuickAccess enabled="true"/>
+            <OneDriveIntegration enabled="false"/>
+            <PreviewPane enabled="true"/>
+            <DetailsPane enabled="true"/>
+            <NavigationPane enabled="true"/>
+        </WindowsExplorer>
+
+        <Security>
+            <WindowsDefender>
+                <RealTimeProtection enabled="false"/>
+                <CloudProtection enabled="false"/>
+                <AutomaticSampleSubmission enabled="false"/>
+                <TamperProtection enabled="false"/>
+                <ControlledFolderAccess enabled="false"/>
+            </WindowsDefender>
+            <SmartScreen enabled="false"/>
+            <WindowsFirewall enabled="true"/>
+            <BitLocker enabled="false"/>
+            <WindowsSecurityCenter enabled="false"/>
+            <UserAccountControl level="Never"/>
+        </Security>
+
+        <Privacy>
+            <Telemetry level="Security"/>
+            <LocationServices enabled="false"/>
+            <CameraAccess enabled="true"/>
+            <MicrophoneAccess enabled="true"/>
+            <DiagnosticData enabled="false"/>
+            <TailoredExperiences enabled="false"/>
+            <AdvertisingID enabled="false"/>
+            <InputPersonalization enabled="false"/>
+            <FeedbackFrequency>Never</FeedbackFrequency>
+        </Privacy>
+
+        <Updates>
+            <AutomaticUpdates enabled="false"/>
+            <RestartNotifications enabled="false"/>
+            <DriverUpdates enabled="false"/>
+            <FeatureUpdates enabled="false"/>
+            <QualityUpdates enabled="false"/>
+            <ActiveHours start="08:00" end="18:00"/>
+            <UpdateChannel>SemiAnnual</UpdateChannel>
+        </Updates>
+
+        <Performance>
+            <PowerPlan>High Performance</PowerPlan>
+            <VisualEffects>
+                <AnimationsEnabled>false</AnimationsEnabled>
+                <TransparencyEnabled>false</TransparencyEnabled>
+                <ShadowsEnabled>false</ShadowsEnabled>
+                <MenuAnimations>false</MenuAnimations>
+                <WindowAnimations>false</WindowAnimations>
+                <AeroSnap>true</AeroSnap>
+                <AeroPeek>false</AeroPeek>
+            </VisualEffects>
+            <BackgroundApps enabled="false"/>
+            <StartupPrograms optimized="true"/>
+            <SuperFetch enabled="false"/>
+            <Prefetch enabled="true"/>
+            <GameMode enabled="true"/>
+            <GameBar enabled="false"/>
+        </Performance>
+
+        <Cortana>
+            <Enabled>false</Enabled>
+            <VoiceActivation>false</VoiceActivation>
+            <LockScreenAccess>false</LockScreenAccess>
+            <SearchHistory>false</SearchHistory>
+        </Cortana>
+    </Windows10Features>
+
+    <RemoteAccess>
+        <VNC>
+            <Server>TightVNC</Server>
+            <Port>5901</Port>
+            <Authentication>
+                <Method>VNC</Method>
+                <Password>cloudpc123</Password>
+                <ViewOnlyPassword>viewer123</ViewOnlyPassword>
+                <QueryConnect>false</QueryConnect>
+            </Authentication>
+            <Display>
+                <Resolution width="1920" height="1080"/>
+                <ColorDepth>24</ColorDepth>
+                <CursorShape>local</CursorShape>
+                <DesktopWallpaper>none</DesktopWallpaper>
+            </Display>
+            <Performance>
+                <CompressionLevel>6</CompressionLevel>
+                <JPEG enabled="true" quality="6"/>
+                <CopyRectEncoding enabled="true"/>
+                <TightEncoding enabled="true"/>
+                <ZlibEncoding enabled="true"/>
+                <PollingInterval>50</PollingInterval>
+            </Performance>
+            <Security>
+                <ViewOnlyAccess enabled="true"/>
+                <LocalInputBlocking enabled="false"/>
+                <RemoteInputBlocking enabled="false"/>
+                <IdleTimeout>0</IdleTimeout>
+            </Security>
+        </VNC>
+
+        <RDP>
+            <Port>3389</Port>
+            <NetworkLevelAuthentication enabled="false"/>
+            <RequireSSL enabled="false"/>
+            <EncryptionLevel>Low</EncryptionLevel>
+            <AudioRedirection enabled="true" quality="High"/>
+            <ClipboardRedirection enabled="true"/>
+            <DriveRedirection enabled="true"/>
+            <PrinterRedirection enabled="true"/>
+            <ComPortRedirection enabled="false"/>
+            <USBRedirection enabled="false"/>
+            <RemoteFXVGPU enabled="true"/>
+        </RDP>
+    </RemoteAccess>
+
+    <Applications>
+        <PreInstalled>
+            <WebBrowsers>
+                <Application name="Mozilla Firefox" version="latest" path="C:\Program Files\Mozilla Firefox\firefox.exe" autoUpdate="false"/>
+                <Application name="Google Chrome" version="latest" path="C:\Program Files\Google\Chrome\Application\chrome.exe" autoUpdate="false"/>
+                <Application name="Internet Explorer 11" version="11" path="C:\Program Files\Internet Explorer\iexplore.exe" disabled="false"/>
+                <Application name="Microsoft Edge Legacy" version="44" path="C:\Windows\SystemApps\Microsoft.MicrosoftEdge_8wekyb3d8bbwe\MicrosoftEdge.exe" disabled="true"/>
+            </WebBrowsers>
+            
+            <Development>
+                <Application name="Git" version="latest" path="C:\Program Files\Git\bin\git.exe"/>
+                <Application name="Node.js" version="18.19.0" path="C:\Program Files\nodejs\node.exe"/>
+                <Application name="Python" version="3.11.7" path="C:\Program Files\Python311\python.exe"/>
+                <Application name="Visual Studio Code" version="latest" path="C:\Users\Administrator\AppData\Local\Programs\Microsoft VS Code\Code.exe"/>
+                <Application name="PowerShell" version="5.1" path="C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe"/>
+                <Application name="PowerShell 7" version="7.4" path="C:\Program Files\PowerShell\7\pwsh.exe"/>
+                <Application name="Windows Terminal" version="latest" path="C:\Program Files\WindowsApps\Microsoft.WindowsTerminal_*\wt.exe"/>
+            </Development>
+
+            <Utilities>
+                <Application name="7-Zip" version="latest" path="C:\Program Files\7-Zip\7zFM.exe"/>
+                <Application name="Notepad++" version="latest" path="C:\Program Files\Notepad++\notepad++.exe"/>
+                <Application name="Process Explorer" version="latest" path="C:\Tools\ProcessExplorer\procexp64.exe"/>
+                <Application name="Process Monitor" version="latest" path="C:\Tools\ProcessMonitor\Procmon64.exe"/>
+                <Application name="GPU-Z" version="latest" path="C:\Tools\GPU-Z\GPU-Z.exe"/>
+                <Application name="CPU-Z" version="latest" path="C:\Tools\CPU-Z\cpuz_x64.exe"/>
+                <Application name="HWiNFO64" version="latest" path="C:\Tools\HWiNFO64\HWiNFO64.exe"/>
+            </Utilities>
+
+            <Runtime>
+                <Application name=".NET Framework" version="4.8" path=""/>
+                <Application name=".NET Core" version="6.0" path="C:\Program Files\dotnet\dotnet.exe"/>
+                <Application name=".NET Runtime" version="8.0" path="C:\Program Files\dotnet\dotnet.exe"/>
+                <Application name="Visual C++ 2015-2022" version="2022" path=""/>
+                <Application name="DirectX Runtime" version="latest" path=""/>
+                <Application name="NVIDIA CUDA" version="12.0" path="C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v12.0\bin\nvcc.exe"/>
+                <Application name="OpenCL Runtime" version="latest" path=""/>
+            </Runtime>
+
+            <Media>
+                <Application name="VLC Media Player" version="latest" path="C:\Program Files\VideoLAN\VLC\vlc.exe"/>
+                <Application name="Windows Media Player" version="12" path="C:\Program Files\Windows Media Player\wmplayer.exe"/>
+                <Application name="Photos" version="2023" path="C:\Program Files\WindowsApps\Microsoft.Windows.Photos_*\Microsoft.Photos.exe"/>
+            </Media>
+        </PreInstalled>
+
+        <AutoStart>
+            <Application name="VNC Server" enabled="true" delay="10"/>
+            <Application name="System Monitor" enabled="true" path="C:\CloudPC\scripts\system-monitor.ps1" delay="30"/>
+            <Application name="Log Rotation" enabled="true" schedule="daily" time="02:00"/>
+            <Application name="GPU Monitor" enabled="true" path="C:\CloudPC\scripts\gpu-monitor.ps1" delay="60"/>
+        </AutoStart>
+
+        <WindowsFeatures>
+            <Feature name="IIS-WebServerRole" enabled="true"/>
+            <Feature name="IIS-WebServer" enabled="true"/>
+            <Feature name="IIS-CommonHttpFeatures" enabled="true"/>
+            <Feature name="IIS-HttpErrors" enabled="true"/>
+            <Feature name="IIS-HttpLogging" enabled="true"/>
+            <Feature name="IIS-RequestFiltering" enabled="true"/>
+            <Feature name="IIS-StaticContent" enabled="true"/>
+            <Feature name="Containers" enabled="true"/>
+            <Feature name="Microsoft-Hyper-V" enabled="true"/>
+            <Feature name="VirtualMachinePlatform" enabled="true"/>
+            <Feature name="Windows-Defender-Features" enabled="false"/>
+            <Feature name="WorkFolders-Client" enabled="false"/>
+            <Feature name="Printing-PrintToPDFServices-Features" enabled="true"/>
+        </WindowsFeatures>
+    </Applications>
+
+    <NetworkConfiguration>
+        <Interfaces>
+            <Ethernet>
+                <DHCP enabled="true"/>
+                <IPv6 enabled="true"/>
+                <JumboFrames enabled="false"/>
+                <LargeSendOffload enabled="true"/>
+                <ReceiveSideScaling enabled="true"/>
+                <NetworkAdapterPowerManagement enabled="false"/>
+            </Ethernet>
+        </Interfaces>
+
+        <Firewall>
+            <Profile name="Domain" state="on" notifications="off"/>
+            <Profile name="Private" state="on" notifications="off"/>
+            <Profile name="Public" state="on" notifications="off"/>
+            
+            <Rules>
+                <InboundRule name="VNC-TCP" action="allow" protocol="TCP" localPort="5901" enabled="true"/>
+                <InboundRule name="VNC-HTTP" action="allow" protocol="TCP" localPort="5800" enabled="true"/>
+                <InboundRule name="RDP-TCP" action="allow" protocol="TCP" localPort="3389" enabled="true"/>
+                <InboundRule name="HTTP" action="allow" protocol="TCP" localPort="80" enabled="true"/>
+                <InboundRule name="HTTPS" action="allow" protocol="TCP" localPort="443" enabled="true"/>
+                <InboundRule name="File-Printer-Sharing" action="block" protocol="any" enabled="true"/>
+                <InboundRule name="Network-Discovery" action="block" protocol="any" enabled="true"/>
+                <OutboundRule name="All-Traffic" action="allow" protocol="any" enabled="true"/>
+            </Rules>
+
+            <Logging>
+                <LogDroppedPackets>false</LogDroppedPackets>
+                <LogSuccessfulConnections>false</LogSuccessfulConnections>
+                <LogLocation>C:\CloudPC\logs\firewall.log</LogLocation>
+                <MaxLogSize>4096</MaxLogSize>
+            </Logging>
+        </Firewall>
+
+        <DNS>
+            <Primary>8.8.8.8</Primary>
+            <Secondary>8.8.4.4</Secondary>
+            <IPv6Primary>2001:4860:4860::8888</IPv6Primary>
+            <IPv6Secondary>2001:4860:4860::8844</IPv6Secondary>
+            <DNSCache enabled="true" maxEntries="10000"/>
+        </DNS>
+
+        <Proxy>
+            <Enabled>false</Enabled>
+            <AutoDetect>false</AutoDetect>
+            <PAC enabled="false" url=""/>
+            <BypassLocal>true</BypassLocal>
+        </Proxy>
+    </NetworkConfiguration>
+
+    <UserAccounts>
+        <Administrator>
+            <Username>Administrator</Username>
+            <Password></Password>
+            <PasswordComplexity enabled="false"/>
+            <PasswordExpiry enabled="false"/>
+            <AutoLogon enabled="true"/>
+            <UserAccountControl level="Never"/>
+            <RemoteDesktop enabled="true"/>
+            <LocalSecurityPolicy>
+                <SeServiceLogonRight>true</SeServiceLogonRight>
+                <SeRemoteInteractiveLogonRight>true</SeRemoteInteractiveLogonRight>
+                <SeDenyNetworkLogonRight>false</SeDenyNetworkLogonRight>
+            </LocalSecurityPolicy>
+        </Administrator>
+
+        <DefaultUser>
+            <Username>CloudUser</Username>
+            <Password>CloudUser123!</Password>
+            <AutoLogon enabled="false"/>
+            <PasswordRequired enabled="true"/>
+            <RemoteDesktop enabled="true"/>
+            <StandardUser enabled="true"/>
+        </DefaultUser>
+
+        <GuestAccount enabled="false"/>
+    </UserAccounts>
+
+    <Services>
+        <WindowsServices>
+            <!-- Disabled Services for Performance -->
+            <Service name="Themes" startup="Disabled" description="Windows visual themes"/>
+            <Service name="Windows Search" startup="Disabled" description="File indexing service"/>
+            <Service name="Print Spooler" startup="Manual" description="Print queue manager"/>
+            <Service name="Windows Update" startup="Manual" description="Automatic updates"/>
+            <Service name="Windows Defender Antivirus Service" startup="Disabled"/>
+            <Service name="Windows Defender Firewall" startup="Manual"/>
+            <Service name="SysMain" startup="Disabled" description="SuperFetch/Prefetch"/>
+            <Service name="Windows Error Reporting Service" startup="Disabled"/>
+            <Service name="Diagnostic Policy Service" startup="Manual"/>
+            <Service name="Windows Event Log" startup="Automatic" description="System logging"/>
+            <Service name="Task Scheduler" startup="Automatic" description="Scheduled tasks"/>
+            <Service name="Windows Time" startup="Automatic" description="Time synchronization"/>
+            <Service name="Remote Desktop Services" startup="Automatic"/>
+            <Service name="Remote Desktop Configuration" startup="Automatic"/>
+            
+            <!-- Essential Services -->
+            <Service name="DHCP Client" startup="Automatic"/>
+            <Service name="DNS Client" startup="Automatic"/>
+            <Service name="Network Location Awareness" startup="Automatic"/>
+            <Service name="Network List Service" startup="Automatic"/>
+            <Service name="Windows Management Instrumentation" startup="Automatic"/>
+            <Service name="Remote Procedure Call (RPC)" startup="Automatic"/>
+            <Service name="Security Accounts Manager" startup="Automatic"/>
+            <Service name="Server" startup="Automatic"/>
+            <Service name="Workstation" startup="Automatic"/>
+        </WindowsServices>
+
+        <CustomServices>
+            <Service name="TightVNC Server" startup="Automatic" path="C:\Program Files\TightVNC\tvnserver.exe" dependencies="RpcSs"/>
+            <Service name="NVIDIA Display Container LS" startup="Automatic"/>
+            <Service name="NVIDIA LocalSystem Container" startup="Automatic"/>
+            <Service name="NVIDIA NetworkService Container" startup="Automatic"/>
+            <Service name="CloudPC Monitor" startup="Automatic" path="C:\CloudPC\scripts\service-monitor.exe"/>
+        </CustomServices>
+    </Services>
+
+    <ScheduledTasks>
+        <Task name="System Performance Monitor">
+            <Schedule>Continuous</Schedule>
+            <Command>PowerShell -ExecutionPolicy Bypass -File C:\CloudPC\scripts\system-monitor.ps1</Command>
+            <RunAsUser>SYSTEM</RunAsUser>
+            <Priority>Normal</Priority>
+            <Enabled>true</Enabled>
+        </Task>
+
+        <Task name="Log Rotation">
+            <Schedule>Daily at 2:00 AM</Schedule>
+            <Command>PowerShell -ExecutionPolicy Bypass -File C:\CloudPC\scripts\rotate-logs.ps1</Command>
+            <RunAsUser>SYSTEM</RunAsUser>
+            <Priority>Low</Priority>
+            <Enabled>true</Enabled>
+        </Task>
+
+        <Task name="GPU Health Monitor">
+            <Schedule>Every 30 minutes</Schedule>
+            <Command>nvidia-smi --query-gpu=temperature.gpu,utilization.gpu,memory.used,power.draw --format=csv,noheader,nounits >> C:\CloudPC\logs\gpu-health.csv</Command>
+            <RunAsUser>SYSTEM</RunAsUser>
+            <Priority>Normal</Priority>
+            <Enabled>true</Enabled>
+        </Task>
+
+        <Task name="Disk Cleanup">
+            <Schedule>Weekly on Sunday at 3:00 AM</Schedule>
+            <Command>cleanmgr /sagerun:1</Command>
+            <RunAsUser>SYSTEM</RunAsUser>
+            <Priority>Low</Priority>
+            <Enabled>true</Enabled>
+        </Task>
+
+        <Task name="Network Connectivity Check">
+            <Schedule>Every 5 minutes</Schedule>
+            <Command>PowerShell -Command "Test-NetConnection -ComputerName 8.8.8.8 -Port 53 | Out-File -Append C:\CloudPC\logs\network-check.log"</Command>
+            <RunAsUser>SYSTEM</RunAsUser>
+            <Priority>Normal</Priority>
+            <Enabled>true</Enabled>
+        </Task>
+    </ScheduledTasks>
+
+    <Registry>
+        <Keys>
+            <!-- Windows Explorer Settings -->
+            <Key path="HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced">
+                <Value name="HideFileExt" type="DWORD" data="0"/>
+                <Value name="Hidden" type="DWORD" data="1"/>
+                <Value name="ShowSuperHidden" type="DWORD" data="1"/>
+                <Value name="SeparateProcess" type="DWORD" data="1"/>
+            </Key>
+
+            <!-- Power Management -->
+            <Key path="HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Power">
+                <Value name="HibernateEnabled" type="DWORD" data="0"/>
+                <Value name="CSEnabled" type="DWORD" data="0"/>
+            </Key>
+
+            <!-- Windows Update Disable -->
+            <Key path="HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate\AU">
+                <Value name="NoAutoUpdate" type="DWORD" data="1"/>
+                <Value name="AUOptions" type="DWORD" data="1"/>
+            </Key>
+
+            <!-- Performance Optimizations -->
+            <Key path="HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management">
+                <Value name="ClearPageFileAtShutdown" type="DWORD" data="0"/>
+                <Value name="DisablePagingExecutive" type="DWORD" data="1"/>
+                <Value name="LargeSystemCache" type="DWORD" data="1"/>
+            </Key>
+
+            <!-- Network Optimizations -->
+            <Key path="HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters">
+                <Value name="TcpAckFrequency" type="DWORD" data="1"/>
+                <Value name="TCPNoDelay" type="DWORD" data="1"/>
+                <Value name="Tcp1323Opts" type="DWORD" data="1"/>
+                <Value name="DefaultTTL" type="DWORD" data="64"/>
+            </Key>
+
+            <!-- Visual Effects Disable -->
+            <Key path="HKEY_CURRENT_USER\Control Panel\Desktop">
+                <Value name="UserPreferencesMask" type="BINARY" data="9012038010000000"/>
+                <Value name="MenuShowDelay" type="REG_SZ" data="0"/>
+            </Key>
+
+            <!-- Disable Telemetry -->
+            <Key path="HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\DataCollection">
+                <Value name="AllowTelemetry" type="DWORD" data="0"/>
+                <Value name="DoNotShowFeedbackNotifications" type="DWORD" data="1"/>
+            </Key>
+        </Keys>
+    </Registry>
+
+    <Monitoring>
+        <PerformanceCounters>
+            <Counter name="CPU Usage" path="\Processor(_Total)\% Processor Time" interval="30" threshold="80"/>
+            <Counter name="Memory Available" path="\Memory\Available MBytes" interval="30" threshold="1024"/>
+            <Counter name="Disk Queue Length" path="\PhysicalDisk(_Total)\Current Disk Queue Length" interval="60" threshold="10"/>
+            <Counter name="Network Throughput" path="\Network Interface(*)\Bytes Total/sec" interval="60" threshold="100000000"/>
+            <Counter name="GPU Usage" path="\GPU Engine(*)\Utilization Percentage" interval="60" threshold="90"/>
+            <Counter name="GPU Memory" path="\GPU Adapter Memory(*)\Dedicated Usage" interval="60" threshold="14336"/>
+            <Counter name="Process Count" path="\System\Processes" interval="300" threshold="500"/>
+            <Counter name="Handle Count" path="\System\Handles" interval="300" threshold="100000"/>
+        </PerformanceCounters>
+
+        <EventLogs>
+            <Log name="System" retention="7" maxSize="100MB" enabled="true"/>
+            <Log name="Application" retention="7" maxSize="100MB" enabled="true"/>
+            <Log name="Security" retention="30" maxSize="200MB" enabled="true"/>
+            <Log name="Setup" retention="7" maxSize="50MB" enabled="true"/>
+            <Log name="Microsoft-Windows-Kernel-Power/Thermal-Operational" retention="3" maxSize="10MB" enabled="true"/>
+        </EventLogs>
+
+        <CustomLogs>
+            <Log name="VNC Server" path="C:\CloudPC\logs\vnc.log" rotation="daily" maxSize="50MB"/>
+            <Log name="Performance Monitor" path="C:\CloudPC\logs\performance.log" rotation="weekly" maxSize="100MB"/>
+            <Log name="GPU Health" path="C:\CloudPC\logs\gpu-health.csv" rotation="monthly" maxSize="10MB"/>
+            <Log name="Network Connectivity" path="C:\CloudPC\logs\network-check.log" rotation="weekly" maxSize="25MB"/>
+            <Log name="System Errors" path="C:\CloudPC\logs\system-errors.log" rotation="daily" maxSize="50MB"/>
+        </CustomLogs>
+
+        <Alerts>
+            <Alert name="High CPU Usage" condition="CPU > 90%" action="log" email="false"/>
+            <Alert name="Low Memory" condition="Available Memory < 2GB" action="log" email="false"/>
+            <Alert name="GPU Overheating" condition="GPU Temp > 80°C" action="log,throttle" email="true"/>
+            <Alert name="Disk Full" condition="Free Space < 10GB" action="log,cleanup" email="true"/>
+            <Alert name="VNC Disconnected" condition="VNC Service Stopped" action="restart" email="true"/>
+        </Alerts>
+    </Monitoring>
+
+    <Backup>
+        <AutoBackup enabled="true" schedule="Daily at 1:00 AM">
+            <Targets>
+                <Path>C:\CloudPC\data</Path>
+                <Path>C:\CloudPC\config</Path>
+                <Path>C:\Users\Administrator\Desktop</Path>
+                <Path>C:\Users\Administrator\Documents</Path>
+                <Path>HKEY_LOCAL_MACHINE\SOFTWARE\TightVNC</Path>
+                <Path>HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services</Path>
+            </Targets>
+            <Destination>C:\CloudPC\backups</Destination>
+            <Retention days="7"/>
+            <Compression enabled="true" level="6"/>
+            <Verification enabled="true"/>
+            <Notification enabled="false"/>
+        </AutoBackup>
+
+        <SystemRestore>
+            <Enabled>false</Enabled>
+            <MaxDiskUsage>2</MaxDiskUsage>
+            <CreatePoints>false</CreatePoints>
+        </SystemRestore>
+    </Backup>
+
+    <Optimization>
+        <StartupPrograms>
+            <Program name="Adobe Updater" action="disable"/>
+            <Program name="Office Click-to-Run" action="disable"/>
+            <Program name="Skype" action="disable"/>
+            <Program name="Steam Client Bootstrapper" action="disable"/>
+            <Program name="Spotify" action="disable"/>
+            <Program name="Discord" action="disable"/>
+            <Program name="Windows Security notification icon" action="disable"/>
+        </StartupPrograms>
+
+        <ProcessPriority>
+            <Process name="tvnserver.exe" priority="High"/>
+            <Process name="svchost.exe" priority="Normal"/>
+            <Process name="explorer.exe" priority="Normal"/>
+            <Process name="dwm.exe" priority="High"/>
+        </ProcessPriority>
+
+        <CleanupTasks>
+            <Task name="Temp Files" schedule="Daily" location="%TEMP%" age="1"/>
+            <Task name="Windows Temp" schedule="Daily" location="%WINDIR%\Temp" age="1"/>
+            <Task name="Recycle Bin" schedule="Weekly" location="Recycle Bin" age="7"/>
+            <Task name="Event Logs" schedule="Monthly" location="Event Viewer" age="30"/>
+            <Task name="Browser Cache

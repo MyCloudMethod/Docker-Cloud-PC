@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CloudPCConfiguration>
+    <SystemSpecifications>
+        <CPU cores="16" architecture="x64" />
+        <RAM size="134217728" unit="KB" />
+        <GPU model="NVIDIA Tesla T4" memory="16384" unit="MB" />
+        <Storage size="549755813888" unit="bytes" type="SSD" />
+    </SystemSpecifications>
+    
+    <OperatingSystem>
+        <Name>Windows Server Core</Name>
+        <Version>LTSC2022</Version>
+        <Edition>Datacenter</Edition>
+    </OperatingSystem>
+    
+    <NetworkConfiguration>
+        <VNC>
+            <Port>5901</Port>
+            <Authentication>true</Authentication>
+            <PasswordProtected>true</PasswordProtected>
+            <Encryption>true</Encryption>
+        </VNC>
+        <RDP>
+            <Port>3389</Port>
+            <Enabled>true</Enabled>
+            <NLA>false</NLA>
+        </RDP>
+        <HTTP>
+            <Port>80</Port>
+            <HTTPS>443</HTTPS>
+        </HTTP>
+    </NetworkConfiguration>
+    
+    <Services>
+        <VNCServer>
+            <Name>TightVNC</Name>
+            <AutoStart>true</AutoStart>
+            <LogLevel>INFO</LogLevel>
+            <MaxConnections>10</MaxConnections>
+        </VNCServer>
+        <WebServer>
+            <Name>IIS</Name>
+            <AutoStart>true</AutoStart>
+            <DefaultDocument>index.html</DefaultDocument>
+        </WebServer>
+        <NVIDIA>
+            <CudaSupport>true</CudaSupport>
+            <ContainerToolkit>true</ContainerToolkit>
+        </NVIDIA>
+    </Services>
+    
+    <Security>
+        <Firewall>
+            <VNCRule action="allow" port="5901" protocol="TCP" />
+            <RDPRule action="allow" port="3389" protocol="TCP" />
+            <HTTPRule action="allow" port="80" protocol="TCP" />
+            <HTTPSRule action="allow" port="443" protocol="TCP" />
+        </Firewall>
+        <Authentication>
+            <VNCPassword>cloudpc123</VNCPassword>
+            <AdminPassword>admin123</AdminPassword>
+        </Authentication>
+    </Security>
+    
+    <Applications>
+        <Browser name="Firefox" autoInstall="true" />
+        <Browser name="Chrome" autoInstall="true" />
+        <Editor name="Notepad++" autoInstall="true" />
+        <Utility name="7zip" autoInstall="true" />
+        <Development name="Git" autoInstall="true" />
+        <Development name="Node.js" autoInstall="true" />
+        <Development name="Python3" autoInstall="true" />
+    </Applications>
+    
+    <Performance>
+        <CPULimit>100</CPULimit>
+        <MemoryLimit>134217728</MemoryLimit>
+        <IOPSLimit>10000</IOPSLimit>
+        <NetworkBandwidth>10000</NetworkBandwidth>
+    </Performance>
+    
+    <Logging>
+        <Level>INFO</Level>
+        <Retention days="7" />
+        <Location>C:\CloudPC\logs</Location>
+    </Logging>
+</CloudPCConfiguration>

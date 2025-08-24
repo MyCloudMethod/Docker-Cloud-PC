@@ -1,0 +1,106 @@
+version: '3.8'
+
+services:
+  windows-cloud-pc:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: windows11-cloudpc
+    hostname: cloudpc-win11
+    
+    # Hardware specifications
+    deploy:
+      resources:
+        limits:
+          cpus: '16'
+          memory: 128G
+        reservations:
+          cpus: '8'
+          memory: 64G
+      # GPU support for NVIDIA T4
+      devices:
+        - driver: nvidia
+          count: 1
+          capabilities: [gpu]
+    
+    # Port mappings
+    ports:
+      - "5901:5901"    # VNC
+      - "3389:3389"    # RDP
+      - "8080:80"      # HTTP
+      - "8443:443"     # HTTPS
+    
+    # Environment variables
+    environment:
+      - DISPLAY=:1
+      - VNC_PORT=5901
+      - VNC_PASSWORD=cloudpc123
+      - NVIDIA_VISIBLE_DEVICES=all
+      - NVIDIA_DRIVER_CAPABILITIES=all
+      - TZ=UTC
+    
+    # Volume mappings
+    volumes:
+      - cloudpc-data:/CloudPC/data
+      - cloudpc-logs:/CloudPC/logs
+      - cloudpc-config:/CloudPC/config
+      - type: bind
+        source: ./cloudpc-config.xml
+        target: C:/CloudPC/config/cloudpc-config.xml
+    
+    # Network configuration
+    networks:
+      - cloudpc-network
+    
+    # Restart policy
+    restart: unless-stopped
+    
+    # Health check
+    healthcheck:
+      test: ["CMD", "powershell", "-Command", "Test-NetConnection -ComputerName localhost -Port 5901 -InformationLevel Quiet"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 60s
+    
+    # Security options
+    security_opt:
+      - no-new-privileges:true
+    
+    # Resource limits (alternative specification)
+    mem_limit: 128g
+    memswap_limit: 128g
+    cpus: 16
+    
+    # Storage driver options for SSD optimization
+    storage_opt:
+      size: 512G
+
+networks:
+  cloudpc-network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.20.0.0/16
+
+volumes:
+  cloudpc-data:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: ./data
+  
+  cloudpc-logs:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: ./logs
+  
+  cloudpc-config:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: ./config
